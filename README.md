@@ -1,1 +1,1 @@
-# react-app--accounting
+# react-app-accounting
