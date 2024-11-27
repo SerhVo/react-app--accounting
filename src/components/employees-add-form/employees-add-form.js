@@ -13,14 +13,24 @@ class EmployeesAddForm extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    this.props.onAdd(this.state.name, this.state.salary);
+    const { name, salary } = this.state;
+
+    if (name.trim() === "" || salary.trim() === "") {
+      this.setState({ error: "Пожалуйста, заполните все поля!" });
+      return;
+    }
+
+    this.props.onAdd(name, salary);
     this.setState({
       name: "",
       salary: "",
+      error: "",
     });
   };
+
   render() {
-    const { name, salary } = this.state;
+    const { name, salary, error } = this.state;
+
     return (
       <div className="app-add-form">
         <h3>Добавьте нового сотрудника</h3>
@@ -41,7 +51,6 @@ class EmployeesAddForm extends Component {
             value={salary}
             onChange={this.onValueChange}
           />
-
           <button
             type="submit"
             className="btn btn-outline-light"
@@ -50,6 +59,7 @@ class EmployeesAddForm extends Component {
             Добавить
           </button>
         </form>
+        {error && <p className="error-message">{error}</p>}
       </div>
     );
   }
