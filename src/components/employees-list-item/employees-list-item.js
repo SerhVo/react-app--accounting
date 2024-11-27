@@ -1,14 +1,7 @@
 import "./employees-list-item.css";
 
 const EmployeesListItem = (props) => {
-  const {
-    name,
-    salary,
-    onDelete,
-    onToggleProps,
-    increase,
-    rise,
-  } = props;
+  const { name, salary, onDelete, onToggleProps, increase, rise } = props;
 
   let classNames = "list-group-item d-flex justify-content-between";
   if (increase) {
@@ -31,12 +24,17 @@ const EmployeesListItem = (props) => {
         type="text"
         className="list-group-item-input"
         defaultValue={salary + "$"}
+        onChange={
+          (e) =>
+            props.onToggleProps("salary", e.target.value.replace(/[^0-9]/g, "")) // Передача нового значения зарплаты
+        }
+        name="salary"
       />
       <div className="d-flex justify-content-center align-items-center">
         <button
           type="button"
           className="btn-cookie btn-sm "
-          onClick={onToggleProps}
+          onClick={(e) => props.onToggleProps("increase")}
           data-toggle="increase"
         >
           <i className="fas fa-cookie"></i>
